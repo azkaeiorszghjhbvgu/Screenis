@@ -31,5 +31,9 @@ pythonw screen_webhook.py
 ## Discord Setup
 In your own discord server or any server you can edit, create a new or select a text channel you want
 then open its settings, you can find the integrations tab then click create webhook.
-<img width="1920" height="1015" alt="image" src="https://github.com/user-attachments/assets/3eddc2f0-35d2-4bfc-a16d-2119b9bf2cec" />
 
+<img width="1108" height="612" alt="image" src="https://github.com/user-attachments/assets/e8d68f62-112b-4b7d-96b3-9dcf63b2a572" />
+
+Customize the Webhook bot however you'd like then click "Copy Webhook URL"
+
+<img width="1096" height="773" alt="image" src="https://github.com/user-attachments/assets/2effa76c-75b6-4b55-9445-7cac1d35ea52" />
