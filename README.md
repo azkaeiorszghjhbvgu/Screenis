@@ -8,6 +8,8 @@ Screenshots are held in memory and sent directly — nothing is written to disk.
 **NOTE:** while running, this sends an image of your entire screen to
 Discord on that interval. Only run it on a machine you intend to monitor.
 
+**Windows only.** Mac and Linux are not supported yet.
+
 ## Setup
 
 ```
