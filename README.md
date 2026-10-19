@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ## Run
 
-Double-click `ScreenShot 5.bat`, or:
+Double-click `Screenis.bat`, or:
 
 ```
 pythonw screen_webhook.py
