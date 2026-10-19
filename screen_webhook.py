@@ -81,6 +81,12 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Screenis - Discord Webhook Screenshot Sender")
+        # Inside the .exe, bundled files are unpacked to sys._MEIPASS.
+        icon = os.path.join(getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__))), "icon.ico")
+        try:
+            self.root.iconbitmap(default=icon)
+        except tk.TclError:
+            pass  # missing icon file shouldn't stop the app
         self.root.geometry("560x240")
         self.root.resizable(False, False)
 
@@ -292,6 +298,11 @@ class App:
 
 
 if __name__ == "__main__":
+    # Own taskbar identity, so the taskbar shows our icon instead of Python's.
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("Screenis")
+    except Exception:
+        pass
     root = tk.Tk()
     App(root)
     root.mainloop()
