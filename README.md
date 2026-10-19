@@ -12,7 +12,7 @@ Discord on that interval. Only run it on a machine you intend to monitor.
 
 ## Easy install (no Python needed)
 
-1. Click [Screenis.exe](Screenis.exe) in this repo, then the download button.
+1. Download [Screenis.exe](https://github.com/azkaeiorszghjhbvgu/Screenis/releases/latest/download/Screenis.exe) from the latest release.
 2. Put it in its own folder (it saves `config.json` next to itself).
 3. Double-click it. If Windows SmartScreen warns about an unknown app,
    click **More info → Run anyway**.
