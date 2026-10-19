@@ -73,8 +73,8 @@ class App:
         interval_frame = tk.Frame(root)
         interval_frame.pack(anchor="w", padx=12, pady=(10, 0))
         tk.Label(interval_frame, text="Send every:").pack(side="left")
-        self.amount_var = tk.StringVar(value="5")
-        self.amount_spin = tk.Spinbox(interval_frame, from_=1, to=9999, width=6,
+        self.amount_var = tk.StringVar(value="0")
+        self.amount_spin = tk.Spinbox(interval_frame, from_=0, to=9999, width=6,
                                       textvariable=self.amount_var)
         self.amount_spin.pack(side="left", padx=6)
         self.unit_var = tk.StringVar(value="minutes")

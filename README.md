@@ -2,7 +2,7 @@
 
 A small local GUI app for your own PC. It captures a full-screen screenshot
 (all monitors) and uploads it to a Discord webhook on an interval you choose
-(seconds, minutes or hours; default 5 minutes).
+(seconds, minutes or hours).
 Screenshots are held in memory and sent directly — nothing is written to disk.
 
 **NOTE:** while running, this sends an image of your entire screen to
