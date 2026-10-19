@@ -5,7 +5,7 @@ A small local GUI app for your own PC. It captures a full-screen screenshot
 (seconds, minutes or hours; default 5 minutes).
 Screenshots are held in memory and sent directly — nothing is written to disk.
 
-**Heads up:** while running, this sends an image of your entire screen to
+**NOTE:** while running, this sends an image of your entire screen to
 Discord on that interval. Only run it on a machine you intend to monitor.
 
 ## Setup
