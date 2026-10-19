@@ -28,7 +28,7 @@ Double-click `Screenis.bat`, or:
 ```
 pythonw screen_webhook.py
 ```
-## Discord Setup
+## Setup
 In your own discord server or any server you can edit, create a new or select a text channel you want
 then open its settings, you can find the integrations tab then click create webhook.
 
@@ -37,3 +37,11 @@ then open its settings, you can find the integrations tab then click create webh
 Customize the Webhook bot however you'd like then click "Copy Webhook URL"
 
 <img width="1096" height="773" alt="image" src="https://github.com/user-attachments/assets/2effa76c-75b6-4b55-9445-7cac1d35ea52" />
+
+Open the Windows batch file, then paste the URL
+<img width="558" height="281" alt="image" src="https://github.com/user-attachments/assets/a373a090-0132-458e-b1d4-be0315a08e2d" />
+
+## Notes
+
+   - The minute(s) and second(s) only goes up to 59, higher value results in an error.
+   - Test Webhook, pretty self explanatory, will send a single screenshot to that webhook to test if the Webhook works, view that text channel.
