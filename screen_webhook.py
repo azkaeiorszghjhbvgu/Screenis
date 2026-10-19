@@ -10,12 +10,14 @@ Screenshots are captured in memory and uploaded directly to the webhook.
 Nothing is ever written to disk.
 """
 
+import ctypes
 import io
 import json
 import os
 import threading
 import time
 import tkinter as tk
+from ctypes import wintypes
 from tkinter import messagebox
 
 import requests
@@ -41,6 +43,35 @@ def save_webhook(url):
             json.dump({"webhook_url": url}, f)
     except Exception:
         pass
+
+
+def list_monitors():
+    """Return {label: crop box} for each monitor, boxes relative to the all-screens grab."""
+    user32 = ctypes.windll.user32
+    # Pillow grabs in per-monitor-DPI-aware physical pixels; measure monitors the same way.
+    user32.SetThreadDpiAwarenessContext.restype = ctypes.c_void_p
+    user32.SetThreadDpiAwarenessContext.argtypes = [ctypes.c_void_p]
+    old_ctx = user32.SetThreadDpiAwarenessContext(ctypes.c_void_p(-3))
+    rects = []
+    try:
+        proc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HMONITOR, wintypes.HDC,
+                                  ctypes.POINTER(wintypes.RECT), wintypes.LPARAM)
+
+        def cb(_mon, _hdc, r, _lp):
+            rects.append((r.contents.left, r.contents.top, r.contents.right, r.contents.bottom))
+            return True
+
+        user32.EnumDisplayMonitors(None, None, proc(cb), 0)
+        vx, vy = user32.GetSystemMetrics(76), user32.GetSystemMetrics(77)  # virtual screen origin
+    finally:
+        if old_ctx:
+            user32.SetThreadDpiAwarenessContext(old_ctx)
+
+    monitors = {}
+    for i, (l, t, r, b) in enumerate(sorted(rects), start=1):
+        primary = " (primary)" if (l, t) == (0, 0) else ""
+        monitors[f"Monitor {i}: {r - l}x{b - t}{primary}"] = (l - vx, t - vy, r - vx, b - vy)
+    return monitors
 
 
 class App:
@@ -80,6 +111,16 @@ class App:
         self.unit_var = tk.StringVar(value="minutes")
         self.unit_menu = tk.OptionMenu(interval_frame, self.unit_var, *UNIT_SECONDS)
         self.unit_menu.pack(side="left")
+
+        # --- Display ---
+        tk.Label(interval_frame, text="Display:").pack(side="left", padx=(16, 0))
+        try:
+            self.monitors = {"All monitors": None, **list_monitors()}
+        except Exception:
+            self.monitors = {"All monitors": None}  # enumeration failed; fall back to full grab
+        self.display_var = tk.StringVar(value="All monitors")
+        self.display_menu = tk.OptionMenu(interval_frame, self.display_var, *self.monitors)
+        self.display_menu.pack(side="left", padx=6)
 
         # --- Buttons ---
         btn_frame = tk.Frame(root)
@@ -134,6 +175,7 @@ class App:
         self.url_entry.config(state="disabled")
         self.amount_spin.config(state="disabled")
         self.unit_menu.config(state="disabled")
+        self.display_menu.config(state="disabled")
         self.status_var.set("Started. Sending first screenshot...")
         # Send one immediately, then schedule at the chosen interval.
         self._tick()
@@ -188,7 +230,9 @@ class App:
                 self.root.withdraw()
                 self.root.update()
                 time.sleep(0.15)  # let the window actually disappear before grabbing
-                holder["img"] = ImageGrab.grab(all_screens=True)
+                img = ImageGrab.grab(all_screens=True)
+                box = self.monitors[self.display_var.get()]
+                holder["img"] = img.crop(box) if box else img
             except Exception as e:
                 holder["err"] = e
             finally:
