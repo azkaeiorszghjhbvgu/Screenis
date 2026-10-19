@@ -14,6 +14,7 @@ import ctypes
 import io
 import json
 import os
+import sys
 import threading
 import time
 import tkinter as tk
@@ -26,7 +27,9 @@ from PIL import ImageGrab
 UNIT_SECONDS = {"seconds": 1, "minutes": 60, "hours": 3600}
 
 # Config file sits next to this script and stores only the webhook URL.
-CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+# When built as an .exe, __file__ is a temp folder, so use the .exe's folder instead.
+_APP_DIR = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__))
+CONFIG_PATH = os.path.join(_APP_DIR, "config.json")
 
 
 def load_webhook():
