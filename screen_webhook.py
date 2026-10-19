@@ -80,7 +80,7 @@ def list_monitors():
 class App:
     def __init__(self, root):
         self.root = root
-        self.root.title("Sends your screen to Discord on a timer")
+        self.root.title("Screenis - Discord Webhook Screenshot Sender")
         self.root.geometry("560x240")
         self.root.resizable(False, False)
 
