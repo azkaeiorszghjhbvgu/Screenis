@@ -28,8 +28,8 @@ Double-click `Screenis.bat`, or:
 ```
 pythonw screen_webhook.py
 ```
+## Discord Setup
+In your own discord server or any server you can edit, create a new or select a text channel you want
+then open its settings, you can find the integrations tab then click create webhook.
+<img width="1920" height="1015" alt="image" src="https://github.com/user-attachments/assets/3eddc2f0-35d2-4bfc-a16d-2119b9bf2cec" />
 
-Paste your own Discord webhook URL, click **Test Webhook** to confirm it
-works, then **Start**. The URL is saved locally to `config.json` (ignored by
-git). Copy `config.example.json` to `config.json` if you'd rather set it by
-hand.
